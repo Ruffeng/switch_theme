@@ -5,14 +5,16 @@ import {SwitchThemeProvider, useSwitchThemeContext} from '../helpers/SwitchHelpe
 import Wrapper from './Wrapper'
 import {  Switch } from './Switch'
 
-
+const Paragraph = styled.p`
+padding: 20px;
+`
 
 const Intro : React.FC = () => (
   <h1> Advanced patterns in React </h1>
 )
 
 const CompoundIntruder = () => (
-  <p> Compound components let's you enter components inside a module, assuring that our code won't break 🎉🎊</p>
+  <Paragraph> Compound components let's you enter components inside a module, assuring that our code won't break 🎉🎊</Paragraph>
 )
 
 
@@ -23,7 +25,7 @@ const SwitchTheme: React.FC = () => {
         <Intro />
         <Switch>
           <Switch.InfoSwitch />
-          <Switch.RenderSwitch />
+          <Switch.RenderSwitch onChange={()=> alert('This alert is extended functionality from the default onChange')}/>
           <CompoundIntruder />
         </Switch>
       </Wrapper>

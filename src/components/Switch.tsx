@@ -4,7 +4,9 @@ import {Switch as SwitchAnt} from 'antd'
 import {useSwitchThemeContext} from '../helpers/SwitchHelper'
 
 
-export const InfoSwitch: React.FC = () => {
+const callAll = (...fns: (Function | undefined)[] ) => (...args: any[]) => fns.forEach(fn => fn && fn(...args))
+
+const InfoSwitch: React.FC = () => {
   const { on } = useSwitchThemeContext()
   const isOn = on ? 'light mode' : 'dark mode'
   return (
@@ -12,10 +14,30 @@ export const InfoSwitch: React.FC = () => {
   )
 }
 
-export const RenderSwitch: React.FC = () => {
+const useSwitch = () => {
   const { on, toggle } = useSwitchThemeContext()
+  const switchProps = ({onChange, ...props}: {onChange: () => void, [key: string]: any}) => {
+    return  {
+      ...props,
+      onChange: callAll(toggle, onChange)
+    }
+  }
+  return {
+    switchProps
+  }
+}
+
+const RenderSwitch: React.FC<{ onChange: () => void }> = ({ onChange } ) => {
+  const { on, toggle } = useSwitchThemeContext()
+  const {switchProps} = useSwitch()
   return(
-    <SwitchAnt checked={on} onChange={() => toggle()} />
+    <SwitchAnt checked={on} {
+      ...switchProps({
+        onChange,
+        id: 'my-dynamic-id'
+      })
+      }
+    />
   )
 }
 
