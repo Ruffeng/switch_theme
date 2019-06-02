@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {SwitchThemeProvider, useSwitchThemeContext} from '../helpers/SwitchHelper'
 import Wrapper from './Wrapper'
 import {  Switch } from './Switch'
+import Footer from './Footer'
 
 const Paragraph = styled.p`
 padding: 20px;
@@ -28,6 +29,7 @@ const SwitchTheme: React.FC = () => {
           <Switch.RenderSwitch onChange={()=> alert('This alert is extended functionality from the default onChange')}/>
           <CompoundIntruder />
         </Switch>
+        <Footer />
       </Wrapper>
     </SwitchThemeProvider>
   )
